@@ -1,5 +1,11 @@
 *.iml
-/.idea/
-/target/
+.idea/
+target/
 pom.xml
 pom.xml.asc
+.calva/
+.classpath
+.settings/
+.project
+.lein-repl-history
+.nrepl-port

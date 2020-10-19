@@ -4,85 +4,59 @@ This wrapper is for any developer who wishes to develop Bukkit using the LISP-ba
 
 ## Installation
 
-Simply download from the download the current (WIP) source and install that, or use Clojars.
+Place the bukkit-for-clojure.jar file in your server plugins directory.
 
-Leiningen and Boot are the main build systems for Clojure, and use Clojars with a Maven backend.
-
-You can add the library by using them, and adding [the following dependency](https://clojars.org/org.clojars.proximyst/bukkit-for-clojure) in the `project.clj` file:
-```clojure
-  :dependencies [ [org.clojars.proximyst/bukkit-for-clojure "1.0.1"] ]
-```
+TODO: Provide link to project on dev.bukkit.org where they can download the jar.
 
 ## Usage
 
-##### Loading the plugin
-Add this to your plugin.yml:
+#### Start a REPL
 
-```yaml
-main: com.proximyst.bukkitforclojure.Main
-```
-Assuming you didn't use the plugin [redbadger/shade](https://github.com/redbadger/shade) or alike to relocate.
+Run this from your server console:
 
-Relocating is however highly recommended, nonetheless, as more than 1 plugin may be defined.
+```/repl start [port]```
 
-And add this to your clojure.yml:
+The default port, if left unspecified, is 7071.
 
-```yaml
-clojure: yourns.yourclj
-```
+#### Stop the REPL
 
-In order to get data about the actual `Plugin` instance, use `Main/getInstance` to get an instance, or call something like this, but with the info you wish to get:
+```/repl stop```
 
-```clojure
-(def logger (.getLogger (Main/instance)) ; Main also has Main/getLogger defined for this.
-```
+The plugin will remember whatever state you left the repl in (running or stopped). If 
+it was running when the server was stopped, it will be started again when the Bukkit server
+starts. By default, the REPL is disabled until you start it. 
 
-##### Actual use of plugin
-Standard methods like onEnable and onDisable are also allowed to be used:
+## Building your own Clojure Plugin
 
-```clojure
-; called on Plugin#onLoad, due to the semantics of Clojure & Java
-(.info (Main/getLogger) "o it loaded")
-(defn onEnable ; Can also be on-enable.
-  []
-  (.info (Main/sLogger) "o it enabled")
-  )
-(defn onDisable ; Can also be on-disable.
-  []
-  (.info (Main/sLogger) "o it disabled")
-  )
-```
-##### Registering events
-To register events you'll first need a method with an event as a param, whether it's type hinted or not:
-```clojure
-(defn playerQuit
-  [^PlayerQuitEvent event]
-  (.info (Main/sLogger) (str (-> event .getPlayer .getName) " has quit the server."))
-  )
-```
+Just doing the above will be enough to give you a REPL where you can experiment interactively
+with the Bukkit API. If you wish to create your own plugin using Clojure... 
 
-To now register this, you'll need to do this in the onEnable, but remember to call use on it first:
-```clojure
-(.registerEvent (Main/getInstance) PlayerQuitEvent (EventPriority/NORMAL) playerQuit))
-```
+TODO
 
-##### Register commands
-To register commands, you'll need a pretty standard onCommand method somewhere, but it will only work for the commands you assign to the specific method:
-```clojure
-(defn clojureCommand
-  [^CommandSender sender
-   ^Command command
-   ^String label
-   & args] ; Type hinting String arrays isnt possible, thus we don't have any type of it, and rather just use it like a collection within clojure.
-  (.info (Main/sLogger) (str (-> command .getName .toUpperCase) " was executed!"))
-  )
-```
-And now onto actually registering the command, again in onEnable:
-```clojure
-(.registerCommand (Main/getInstance) "pluginYmlName" clojureCommand)
-```
-And register the command like you always would in the plugin.yml.
-All exceptions thrown are caught with output, unless they're instance of Return.
+#### Project Setup/Configuration
+
+TODO
+
+#### Extend AbstractClojurePlugin
+
+TODO
+
+#### Configure plugin.yml
+
+TODO
+
+#### Register Event Handlers
+
+TODO
+
+#### Register Command Handlers
+
+TODO
+
+#### Register Tab Completers
+
+TODO
+
 
 ### Bugs
 
@@ -90,6 +64,8 @@ Currently no bugs are known.
 
 ## TO-DO/Plans
 
+- [ ] Create a lein project template, similar to [spigot-clj](https://github.com/JohnnyJayJay/spigot-clj-template).
+- [ ] Test lein project template using [clj-new](https://github.com/seancorfield/clj-new) for generating deps.edn
 - [ ] Write directly to Bukkit's CommandMap.
 
 ## [License](/LICENSE)
