@@ -3,8 +3,6 @@ package bukkitclj;
 import clojure.lang.IFn;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import java.util.logging.Logger;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
@@ -94,7 +92,7 @@ public abstract class ClojurePlugin extends JavaPlugin {
     return null;
   }
 
-  public static final void info(Class cls, String msg) {
+  public static final void info(Class<?> cls, String msg) {
     String className = cls.getName();
     tellConsole(ChatColor.DARK_AQUA+"["+className+"]"+ChatColor.RESET+" "+msg);
   }

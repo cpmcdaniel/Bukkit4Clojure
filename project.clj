@@ -4,7 +4,8 @@
   :license {:name "MIT License"
             :url "https://github.com/cpmcdaniel/Bukkit4Clojure/blob/master/LICENSE"}
   :dependencies [[org.clojure/clojure "1.10.1"]
-                 [nrepl/nrepl "0.8.2"]]
+                 [nrepl/nrepl "0.8.2"]
+                 [org.reflections/reflections "0.9.12"]]
   :repositories {"spigot-repo" "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
                  "releases" {:url "https://repo.clojars.org"
                              :creds :gpg}}

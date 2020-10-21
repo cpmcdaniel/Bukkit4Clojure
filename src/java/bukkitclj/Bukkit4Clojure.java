@@ -1,10 +1,8 @@
 package bukkitclj;
 
-import org.bukkit.Bukkit;
-
 import clojure.java.api.Clojure;
-import clojure.lang.Compiler;
 import clojure.lang.IFn;
+import clojure.lang.Compiler;
 import clojure.lang.RT;
 import clojure.lang.Var;
 
@@ -41,25 +39,24 @@ public final class Bukkit4Clojure extends ClojurePlugin {
 
   static {
     ClassLoader previous = Thread.currentThread().getContextClassLoader();
-    final ClassLoader ccl = Bukkit4Clojure.class.getClassLoader();
+    final ClassLoader ccl = ClojurePlugin.class.getClassLoader();
     Thread.currentThread().setContextClassLoader(ccl);
     try {
       RT.init();
       Var.pushThreadBindings(RT.map(Compiler.LOADER, ccl));
-    } finally {
+    } catch (Exception e) {
       Thread.currentThread().setContextClassLoader(previous);
+      throw e;
     }
   }
+
 
   private IFn require;
   private final String replNs = "bukkitclj.repl";
 
   @Override
   public void onLoad() {
-    require = Clojure.var(
-          "clojure.core",
-          "require"
-    );
+    require = Clojure.var("clojure.core", "require");
     getLogger().info("Loaded Clojure Runtime");
   }
 
