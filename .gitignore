@@ -9,3 +9,4 @@ pom.xml.asc
 .project
 .lein-repl-history
 .nrepl-port
+deploy/

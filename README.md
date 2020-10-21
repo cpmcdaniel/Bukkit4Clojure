@@ -4,7 +4,7 @@ This wrapper is for any developer who wishes to develop Bukkit using the LISP-ba
 
 ## Installation
 
-Place the bukkit-for-clojure.jar file in your server plugins directory.
+Place the bukkit4clj.jar file in your server plugins directory.
 
 TODO: Provide link to project on dev.bukkit.org where they can download the jar.
 
@@ -57,6 +57,18 @@ TODO
 
 TODO
 
+#### Testing your plugin
+
+### Links
+
+- [Bukkt4Clojure plugin download](FIXME) - Go here to download the Bukkit4Clojure plugin JAR
+  file to add to your server `plugins/` directory.
+- [SpigotMC](https://www.spigotmc.org/) - A modified Minecraft server (and community) based on 
+  CraftBukkit. The server APIs and docs are here. This is one option for you to run your own
+  Minecraft server (and test your plugins).
+- [PaperMC](https://papermc.io/) - Built on top of Spigot (compatible with Spigot plugins) with
+  performance improvements and an easy-to-use installer. Bukkit API docs are also availavble here.
+  This is another option for running your own server and testing your plugins.
 
 ### Bugs
 

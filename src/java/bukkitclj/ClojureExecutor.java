@@ -1,4 +1,4 @@
-package org.kowboy.bukkit;
+package bukkitclj;
 
 import clojure.lang.IFn;
 

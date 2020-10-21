@@ -1,7 +1,12 @@
-package org.kowboy.bukkit;
+package bukkitclj;
+
+import org.bukkit.Bukkit;
 
 import clojure.java.api.Clojure;
+import clojure.lang.Compiler;
 import clojure.lang.IFn;
+import clojure.lang.RT;
+import clojure.lang.Var;
 
 /**
  * This plugin is intended to be a dependency of other Clojure 
@@ -32,14 +37,22 @@ import clojure.lang.IFn;
  * using gen-class, and lets you avoid having to package the Clojure
  * library into your plugin jar.
  */
-public final class Bukkit4Clojure extends AbstractClojurePlugin {
+public final class Bukkit4Clojure extends ClojurePlugin {
 
   static {
-    Thread.currentThread().setContextClassLoader(Bukkit4Clojure.class.getClassLoader());
+    ClassLoader previous = Thread.currentThread().getContextClassLoader();
+    final ClassLoader ccl = Bukkit4Clojure.class.getClassLoader();
+    Thread.currentThread().setContextClassLoader(ccl);
+    try {
+      RT.init();
+      Var.pushThreadBindings(RT.map(Compiler.LOADER, ccl));
+    } finally {
+      Thread.currentThread().setContextClassLoader(previous);
+    }
   }
 
   private IFn require;
-  private final String replNs = "org.kowboy.bukkit.repl";
+  private final String replNs = "bukkitclj.repl";
 
   @Override
   public void onLoad() {
@@ -61,6 +74,6 @@ public final class Bukkit4Clojure extends AbstractClojurePlugin {
   public void onDisable() {
     require.invoke(Clojure.read(replNs));
     IFn replOnDisable = Clojure.var(replNs, "on-disable");
-    replOnDisable.invoke(this);
+    replOnDisable.invoke(this);  
   }
 }

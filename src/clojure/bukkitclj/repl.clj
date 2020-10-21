@@ -1,38 +1,42 @@
-(ns org.kowboy.bukkit.repl
+(ns bukkitclj.repl
   "Provides a REPL that can be used to interact with the 
    running Bukkit server. The port defaults to 7071, but
    can be set explicitly in the `repl.port` setting in 
    config.yml"
   (:require [nrepl.server :refer [start-server stop-server]])
-  (:import [org.kowboy.bukkit ClojurePlugin]
+  (:import [bukkitclj ClojurePlugin]
            [org.bukkit.configuration Configuration]
            [org.bukkit.command TabExecutor]))
 
+(def default-host "127.0.0.1")
+
 (def default-port 7071)
-(def nrepl-ref (ref nil))
-(def ^ClojurePlugin plugin-ref (ref nil))
+
+(defonce nrepl-ref (atom nil))
+
+(defonce ^ClojurePlugin plugin-ref (atom nil))
+
 (def sub-commands #{"start" "stop"})
 
 (defn start! 
   "Starts an nREPL service on the specified port, if one is not already
    running. Returns true when a service was started, false otherwise."
-  [^ClojurePlugin plugin port]
-  (dosync 
-   (if-let [nrepl @nrepl-ref]
-     (do (.. plugin (getLogger) (info (str "nREPL is already running on port " (:port nrepl))))
-         false)
-     (do (ref-set nrepl-ref (start-server :port port))
-         (.. plugin (getLogger) (info (str "nREPL running on port " port)))
-         true))))
+  [^ClojurePlugin plugin host port]
+  (if-let [nrepl @nrepl-ref]
+    (do (.info plugin (format "nREPL is already running on port %s" (:port nrepl)))
+        false)
+    (do (reset! nrepl-ref (start-server :bind host :port port))
+        (.info plugin (format "nREPL running at %s:%d" host port))
+        true)))
 
 (defn stop! 
   "Stops the running nREPL service. Silently does nothing
    if the service is not running."
   [^ClojurePlugin plugin]
   (when-let [nrepl @nrepl-ref] 
-    (.. plugin (getLogger) (info "Stopping nREPL"))
+    (.info plugin "Stopping nREPL")
     (stop-server nrepl)
-    (dosync (ref-set nrepl-ref nil))))
+    (reset! nrepl-ref nil)))
 
 (defn repl-start
   "Implements the `/repl start [port]` command."
@@ -40,8 +44,9 @@
   (try
     (let [^Configuration config (.getConfig plugin)
           port (or (and port-arg (Integer/parseInt port-arg))
-                   (.getInt config "repl.port" default-port))]
-      (when (start! plugin port)
+                   (.getInt config "repl.port" default-port))
+          host (.getString config "repl.host" default-host)]
+      (when (start! plugin host port)
                 ;; Save the port number we are using to the config
                 ;; so when the server restarts it will keep this port number.
         (.set config "repl.port" port)
@@ -87,22 +92,28 @@
           (filter #(.startsWith % partial-arg) sub-commands))))))
 
 (defn on-enable [^ClojurePlugin plugin]
-  (dosync (ref-set plugin-ref plugin))
+  (reset! plugin-ref plugin)
   
   ;; Write out initial config.yml
   ;; Does not overwrite if it already exists!
   (.saveDefaultConfig plugin)
   
   (let [^Configuration config (.getConfig plugin)
+        host (.getString config "repl.host" default-host)
         port (.getInt config "repl.port" default-port)
         enabled? (.getBoolean config "repl.enabled" false)
         executor (repl-executor plugin)]
     (.registerCommand plugin "repl" executor)
     (.registerTabCompleter plugin "repl" executor)
     (when enabled?
-      (start! plugin port))))
+      (start! plugin host port))))
 
 (defn on-disable [^ClojurePlugin plugin]
   (.saveConfig plugin)
   (stop! plugin)
-  (dosync (ref-set plugin-ref nil)))
+  (reset! plugin-ref nil))
+
+
+(comment
+   )
+  
