@@ -1,4 +1,4 @@
-(defproject org.kowboy/clojure-example1 "1.0"
+(defproject org.kowboy/clojure-example2 "1.0"
   :description "An example Clojure plugin."
   :url "https://github.com/cpmcdaniel/Bukkit4Clojure"
   :license {:name "MIT License"
@@ -11,4 +11,5 @@
   :aot :all
   :profiles {:provided {:dependencies [[org.clojure/clojure "1.10.1"]
                                        [bukkitclj/bukkit-for-clojure "1.0.4"]
+                                       [org.kowboy/clojure-example1 "1.0"]
                                        [org.spigotmc/spigot-api "1.16.3-R0.1-SNAPSHOT"]]}})

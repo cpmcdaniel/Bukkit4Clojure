@@ -1,4 +1,4 @@
-(defproject org.kowboy/clojure-example1 "1.0"
+(defproject org.kowboy/clojure-example3 "1.0"
   :description "An example Clojure plugin."
   :url "https://github.com/cpmcdaniel/Bukkit4Clojure"
   :license {:name "MIT License"
