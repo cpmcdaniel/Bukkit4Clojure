@@ -28,7 +28,7 @@
   `(seq (.getOnlinePlayers (server))))
 
 (defmacro broadcast [fmt & args]
-  `(.broadcastMessage (server) (apply format ~fmt '~args)))
+  `(.broadcastMessage (server) (format ~fmt ~@args)))
 
 (defmacro worlds-by-name []
   `(into {} (map (fn [^World w#] [(.getName w#) w#])
