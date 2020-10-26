@@ -1,6 +1,4 @@
-(ns bukkitclj.logging
-  (:import [java.util.logging Logger]
-           [org.bukkit.plugin Plugin]))
+(ns bukkitclj.logging)
 
 (defmacro log [plugin level fmt & args]
   (let [logger (gensym)]
@@ -12,7 +10,6 @@
                   `(format ~fmt ~@args)
                   fmt))))))
 
-
 (defmacro info [plugin fmt & args]
   `(log ~plugin java.util.logging.Level/INFO ~fmt ~@args))
 
@@ -22,10 +19,9 @@
 (defmacro severe [plugin fmt & args]
   `(log ~plugin java.util.logging.Level/SEVERE ~fmt ~@args))
 
-
 (comment
-  (macroexpand '(log p Level/INFO "%s:%s" "one" "two"))
-  (macroexpand '(log p Level/INFO "noargs"))
+  ;; Are we ever gonna need to log through Bukkit.getLogger()?
+  
   (macroexpand '(info p "%s:%s" "one" "two"))
   (macroexpand '(info p "noargs"))
   (macroexpand '(severe p "ERROR!"))

@@ -27,6 +27,9 @@
 (defmacro online-players []
   `(seq (.getOnlinePlayers (server))))
 
+(defn get-player [^String name]
+  (Bukkit/getPlayer name))
+
 (defmacro broadcast [fmt & args]
   `(.broadcastMessage (server) (format ~fmt ~@args)))
 
