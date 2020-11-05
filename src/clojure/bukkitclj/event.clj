@@ -83,7 +83,8 @@
   (take 6 events)
   (find-event "player-toggle")
   (describe-event :player/player-toggle-sneak)
-  (let [plugin (deref bukkitclj.repl/plugin-ref)]
+  ;; use a reference to your own plugin instance here...
+  (let [plugin (deref bukkitclj.repl/plugin-ref)] 
     (register-event plugin
                     :player/player-toggle-sneak
                     (fn [e] (println "event triggered!"))

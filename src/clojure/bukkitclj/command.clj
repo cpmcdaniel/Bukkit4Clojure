@@ -22,6 +22,17 @@
       (.setTabCompleter executor))))
 
 (comment
+  (cmd/register-command 
+   plugin
+   "repl"
+   (fn [sender cmd alias args]
+     ;; Do command stuff here...
+     )
+   (fn [sender cmd alias args]
+     ;; Do tab completion here
+     (when (= 1 (count args))
+       (filter #(.startsWith % (first args)) #{"on" "off"}))))
+  
   ;; TODO build a higher-level command registration function that
   ;;      provides convenience for parameter validation, conversion, and
   ;;      tab completion options.
