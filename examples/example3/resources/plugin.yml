@@ -1,0 +1,11 @@
+name: Example3
+
+version: 1.0
+
+api-version: 1.16
+
+author: Craig McDaniel
+
+main: example3.Example3Plugin
+
+depend: [Bukkit4Clojure]

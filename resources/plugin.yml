@@ -1,0 +1,19 @@
+name: Bukkit4Clojure
+
+version: 1.0.4
+
+api-version: 1.16
+
+author: Craig McDaniel
+
+main: bukkitclj.Bukkit4Clojure
+
+load: STARTUP
+
+commands:
+  repl:
+    description: Starts or stops a Clojure nREPL server.
+    aliases: [nrepl]
+    usage: |
+              /repl start [port]
+              /repl stop
