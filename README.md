@@ -5,6 +5,9 @@ plugins using the LISP-based language Clojure.
 
 ## Installation
 
+You can build the base plugin from the source code of this repository. Just clone the
+repository to a local directory and run `lein uberjar` in the project directory.
+
 Place the Bukkit4Clojure.jar file in your server plugins directory.
 
 ## Usage

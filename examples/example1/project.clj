@@ -10,5 +10,5 @@
   :target-path "target/%s"
   :aot :all
   :profiles {:provided {:dependencies [[org.clojure/clojure "1.10.1"]
-                                       [bukkitclj/bukkit-for-clojure "1.0.4"]
+                                       [bukkitclj/bukkit-for-clojure "1.0.6"]
                                        [org.spigotmc/spigot-api "1.16.3-R0.1-SNAPSHOT"]]}})
