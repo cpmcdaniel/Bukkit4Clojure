@@ -55,7 +55,7 @@ with the Bukkit API. If you wish to create your own plugin using Clojure, the ge
   :target-path "target/%s"
   :aot :all
   :profiles {:provided {:dependencies [[org.clojure/clojure "1.10.1"]
-                                       [bukkitclj/bukkit-for-clojure "1.0.5"]
+                                       [bukkitclj/bukkit-for-clojure "1.0.6"]
                                        [org.spigotmc/spigot-api "1.16.3-R0.1-SNAPSHOT"]]}})
 
 ```

@@ -1,4 +1,4 @@
-(defproject bukkitclj/bukkit-for-clojure "1.0.5"
+(defproject bukkitclj/bukkit-for-clojure "1.0.6"
   :description "A Clojure wrapper for Bukkit."
   :url "https://github.com/cpmcdaniel/Bukkit4Clojure"
   :license {:name "MIT License"
@@ -17,6 +17,6 @@
   :pom-plugins [[org.apache.maven.plugins/maven-compiler-plugin "3.7.0"
                  {:configuration ([:source "1.8"] [:target "1.8"])}]]
   :uberjar-name "Bukkit4Clojure.jar"
-  :aot :all
-  :profiles {:provided {:dependencies [[org.spigotmc/spigot-api "1.16.3-R0.1-SNAPSHOT"]]}}
+  :profiles {:provided {:dependencies [[org.spigotmc/spigot-api "1.16.3-R0.1-SNAPSHOT"]]}
+             :uberjar {:aot :all}}
   )
