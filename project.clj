@@ -1,4 +1,4 @@
-(defproject bukkitclj/bukkit-for-clojure "1.0.4"
+(defproject bukkitclj/bukkit-for-clojure "1.0.5"
   :description "A Clojure wrapper for Bukkit."
   :url "https://github.com/cpmcdaniel/Bukkit4Clojure"
   :license {:name "MIT License"
