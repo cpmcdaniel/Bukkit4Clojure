@@ -10,6 +10,8 @@ repository to a local directory and run `lein uberjar` in the project directory.
 
 Place the Bukkit4Clojure.jar file in your server plugins directory.
 
+Alternatively, if you don't want to build the plugin locally, you can download the jar from the [Bukkit4Clojure](https://dev.bukkit.org/projects/bukkit4clojure) project on dev.bukkit.org
+
 ## Usage
 
 #### Start a REPL
@@ -151,7 +153,7 @@ The two most important things to note here are the `main` and `depend` settings.
 
 ### Links
 
-- [Bukkt4Clojure plugin download](FIXME) - Go here to download the Bukkit4Clojure plugin JAR
+- [Bukkt4Clojure plugin download](https://dev.bukkit.org/projects/bukkit4clojure) - Go here to download the Bukkit4Clojure plugin JAR
   file to add to your server `plugins/` directory.
 - [SpigotMC](https://www.spigotmc.org/) - A modified Minecraft server (and community) based on 
   CraftBukkit. The server APIs and docs are here. This is one option for you to run your own
