@@ -88,5 +88,5 @@
     (register-event plugin
                     :player/player-toggle-sneak
                     (fn [e] (println "event triggered!"))
-                    :priority/normal))
-  )
+                    :priority/normal)))
+

@@ -70,7 +70,7 @@
 
 (defn repl-command
   [plugin]
-  (fn [sender command label sub-command & [port]]
+  (fn [sender command label [sub-command port]]
     (cond
       ;; START
       (= "start" sub-command)
@@ -84,10 +84,10 @@
       :else false)))
 
 (defn on-tab-complete
-  [this sender command alias & args]
-  (when (= 1 (count args))
-    (let [[partial-arg] args]
-      (filter #(.startsWith % partial-arg) sub-commands))))
+  [sender command alias args]
+  (if (= 1 (count args))
+    (seq sub-commands)
+    []))
 
 (defn on-enable [^ClojurePlugin plugin]
   (reset! plugin-ref plugin)
@@ -110,5 +110,5 @@
   (reset! plugin-ref nil))
 
 
-(comment
-   )
+(comment)
+

@@ -1,33 +1,38 @@
 (ns bukkitclj.command
-
-  (:import [org.bukkit.plugin Plugin]
+  (:import [org.bukkit.plugin.java JavaPlugin]
            [org.bukkit.command TabExecutor]))
 
 (defn register-command
   "Registers a command function and a tab completer function
   with a given command."
-  [^Plugin plugin
-   ^String command-name
-   handler-fn
-   completer-fn] ;; can be nil if no tab-completion
-
-  (let [executor
-        (proxy [TabExecutor] []
-          (onCommand [sender cmd alias args]
-            (apply handler-fn sender cmd alias args))
-          (onTabComplete [sender cmd alias args]
-            (apply completer-fn sender cmd alias args)))]
-    (doto (.getCommand plugin command-name)
-      (.setExecutor executor)
-      (.setTabCompleter executor))))
+  ([^JavaPlugin plugin
+    ^String command-name
+    handler-fn
+    completer-fn]
+   (let [executor
+         (proxy [TabExecutor] []
+           (onCommand [sender cmd alias args]
+             (handler-fn sender cmd alias args))
+           (onTabComplete [sender cmd alias args]
+             ;; completer-fn can be nil if no tab completion
+             (if completer-fn
+               (completer-fn sender cmd alias args)
+               [])))]
+     (doto (.getCommand plugin command-name)
+       (.setExecutor executor)
+       (.setTabCompleter executor))))
+  ([^JavaPlugin plugin
+    ^String command-name
+    handler-fn]
+   (register-command plugin command-name handler-fn nil)))
 
 (comment
   (cmd/register-command 
    plugin
    "repl"
-   (fn [sender cmd alias args]
+   (fn [sender cmd alias args])
      ;; Do command stuff here...
-     )
+
    (fn [sender cmd alias args]
      ;; Do tab completion here
      (when (= 1 (count args))
