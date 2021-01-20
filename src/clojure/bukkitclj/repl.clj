@@ -9,7 +9,7 @@
   (:import [bukkitclj ClojurePlugin]
            [org.bukkit.configuration Configuration]))
 
-(def default-host "127.0.0.1")
+(def default-host "0.0.0.0")
 
 (def default-port 7071)
 
